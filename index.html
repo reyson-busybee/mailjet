@@ -746,15 +746,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">MailJet</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body table-responsive" >
-                    <iframe src="https://app.mailjet.com/" width="100%" height="1500px" class="border-0">
-        
-                    </iframe>
+                  
+                    <iframe src="https://stg13.beesites.net/mailjet/proxy" width="100%" height="1500px" class="border-0"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
@@ -779,6 +778,21 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+
+    <script>
+        const express = require('express');
+        const request = require('request');
+        const app = express();
+
+        app.get('/proxy', function(req, res) {
+            const url = 'https://app.mailjet.com/';
+            request({ url, headers: { 'User-Agent': req.headers['user-agent'] } }).pipe(res);
+        });
+
+        app.listen(3000, function() {
+            console.log('Proxy server running on port 3000');
+        });
+    </script>
 
 
 
